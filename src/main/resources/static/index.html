@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBL Tech Dev Fest 2026</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 640px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+        }
+
+        form {
+            display: flex;
+            gap: .5rem;
+            margin: 1rem 0;
+        }
+
+        input {
+            flex: 1;
+            padding: .5rem .75rem;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: .5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .4rem 0;
+        }
+
+        li button {
+            font-size: .8rem;
+            padding: .2rem .6rem;
+        }
+
+        .muted {
+            opacity: .6;
+            font-size: .85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🎉 BBL Tech Dev Fest 2026 — Items</h1>
+    <p class="muted">Spring Boot + PostgreSQL (Docker Compose) · API: <code>/api/items</code></p>
+    <form id="form">
+        <input id="name" placeholder="ชื่อ item ใหม่..." required>
+        <button type="submit">เพิ่ม</button>
+    </form>
+    <ul id="list"></ul>
+    <script>
+        const list = document.getElementById('list');
+        const form = document.getElementById('form');
+        const name = document.getElementById('name');
+
+        async function load() {
+            const items = await (await fetch('/api/items')).json();
+            list.innerHTML = '';
+            for (const item of items) {
+                const li = document.createElement('li');
+                const span = document.createElement('span');
+                span.textContent = `#${item.id} ${item.name}`;
+                const del = document.createElement('button');
+                del.textContent = 'ลบ';
+                del.onclick = async () => {
+                    await fetch(`/api/items/${item.id}`, { method: 'DELETE' });
+                    load();
+                };
+                li.append(span, del);
+                list.appendChild(li);
+            }
+        }
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            await fetch('/api/items', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name.value })
+            });
+            name.value = '';
+            load();
+        };
+
+        load();
+    </script>
+</body>
+
+</html>

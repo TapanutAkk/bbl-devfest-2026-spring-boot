@@ -1,0 +1,9 @@
+target/
+.git/
+.claude/
+.idea/
+*.iml
+.vscode/
+CLAUDE.md
+.env
+data/
