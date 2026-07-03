@@ -1,0 +1,18 @@
+<h1>🎉 BBL Tech Dev Fest 2026 — Items</h1>
+<p class="muted">Spring Boot + Angular · API: <code>/api/items</code></p>
+
+<form (ngSubmit)="add()">
+  <input name="name" [(ngModel)]="name" placeholder="ชื่อ item ใหม่..." required>
+  <button type="submit">เพิ่ม</button>
+</form>
+
+<ul>
+  @for (item of items(); track item.id) {
+    <li>
+      <span>#{{ item.id }} {{ item.name }}</span>
+      <button type="button" (click)="remove(item)">ลบ</button>
+    </li>
+  } @empty {
+    <li class="muted">ยังไม่มี item — เพิ่มอันแรกได้เลย</li>
+  }
+</ul>
