@@ -100,6 +100,19 @@ Single Maven module, layered packages under `com.bbl.devfest`:
 - Tests in `src/test/java` mirror main packages; controller tests use MockMvc + `@MockitoBean` (Spring Boot 3.4+ replacement for `@MockBean`); `UserServiceTest` instantiates the service directly (no Spring context)
 - `.github/workflows/ci.yml` — CI: `./mvnw clean verify` on JDK 17, then a `docker build` sanity check
 
+## Commit Message Convention
+
+Use [Conventional Commits](https://www.conventionalcommits.org/): `<type>: <summary>`, summary in imperative mood, no trailing period.
+
+- `feat:` — new feature or endpoint
+- `fix:` — bug fix
+- `docs:` — README/CLAUDE.md/comment-only changes
+- `refactor:` — code change that doesn't add a feature or fix a bug
+- `test:` — adding or updating tests only
+- `chore:` — tooling, CI, dependency, config changes
+
+Example: `feat: add PUT /users/{userId} endpoint`. Body (if any) explains why, wrapped at ~72 chars. Don't add a type prefix for merge/revert commits — use git's default message for those.
+
 ## Gotchas
 
 - Schema is managed by `ddl-auto: update` — no migration tool yet; if entities change incompatibly, delete `./data/` to reset the local H2 database.
