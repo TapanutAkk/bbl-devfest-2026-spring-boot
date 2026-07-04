@@ -1,5 +1,8 @@
 server:
   port: ${SERVER_PORT:8080}
+  error:
+    # Expose exception messages (e.g. "User 5 not found") in error JSON bodies
+    include-message: always
 
 spring:
   application:
