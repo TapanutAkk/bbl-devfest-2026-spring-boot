@@ -73,28 +73,3 @@ DELETE {{host}}/users/3
 
 ### DELETE /users/{id} - not found on second delete (expect 404)
 DELETE {{host}}/users/3
-
-
-### =========================
-### Items API (H2/Postgres)
-### =========================
-
-### GET /api/items - list all
-GET {{host}}/api/items
-
-
-### POST /api/items - create (expect 201)
-POST {{host}}/api/items
-Content-Type: application/json
-
-{
-  "name": "coffee"
-}
-
-
-### GET /api/items/{id}
-GET {{host}}/api/items/1
-
-
-### DELETE /api/items/{id} - delete (expect 204)
-DELETE {{host}}/api/items/1
