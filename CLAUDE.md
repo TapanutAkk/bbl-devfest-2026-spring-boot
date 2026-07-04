@@ -73,6 +73,10 @@ curl -s -X POST http://localhost:8080/api/items -H 'Content-Type: application/js
 curl -s -X DELETE http://localhost:8080/api/items/1
 ```
 
+### Testing endpoints from VSCode
+
+`api-tests.http` at the repo root has every `/users` and `/api/items` request (all methods, plus 404/400 cases) ready to fire via the **REST Client** extension (`humao.rest-client`) — open the file, click "Send Request" above any block. No curl needed.
+
 ### Optional: full stack in Docker (PostgreSQL)
 
 ```bash

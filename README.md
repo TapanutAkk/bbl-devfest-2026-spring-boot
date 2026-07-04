@@ -111,6 +111,14 @@ curl -X POST http://localhost:8080/users \
 # → {"status":400,"error":"Bad Request","messages":["email must not be blank","name must not be blank","username must not be blank"],...}
 ```
 
+## ทดสอบ API ผ่าน VSCode (ง่ายกว่า curl)
+
+ที่ root โปรเจกต์มีไฟล์ [api-tests.http](api-tests.http) รวม request ของทั้ง Users API และ Items API ไว้ครบ (GET/POST/PUT/DELETE รวมเคส 404, 400)
+
+1. ติดตั้ง VSCode extension **REST Client** (id: `humao.rest-client`) — ตัวเดียวพอ
+2. รันแอปให้ทำงานอยู่ (`./mvnw spring-boot:run`)
+3. เปิดไฟล์ `api-tests.http` — เหนือแต่ละ request จะมีลิงก์ **"Send Request"** กดเพื่อยิงแล้วดู response (status + JSON) เป็น tab ใหม่ทันที ไม่ต้องพิมพ์ curl เอง
+
 ## Items API (ทดลองยิง)
 
 ```bash
@@ -171,6 +179,7 @@ src/main/resources/
 └── static/index.html    # หน้าเว็บ
 src/test/java/           # เทส (MockMvc + service tests, ไม่ต้องใช้ DB)
 .github/workflows/ci.yml # CI: build + test + docker build
+api-tests.http           # ทดสอบ API ผ่าน VSCode REST Client extension
 ```
 
 ## แก้ปัญหาที่พบบ่อย
